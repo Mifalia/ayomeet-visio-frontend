@@ -1,0 +1,33 @@
+# Ignore compiled output
+dist
+out-tsc
+
+# Ignore node_modules
+node_modules
+
+# Ignore environment files
+src/environments/*.ts
+
+# Ignore Angular cache
+.angular
+
+# Ignore IDE files
+.vscode
+.idea
+
+# Ignore logs
+*.log
+
+# Ignore coverage reports
+coverage
+
+# Ignore temporary files
+*.tmp
+*.temp
+
+# Ignore build artifacts
+*.ngfactory.ts
+*.ngsummary.json
+
+# App specific:
+src/index.html
