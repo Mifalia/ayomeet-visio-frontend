@@ -1,0 +1,8 @@
+@font-face {
+  font-family: 'space_grotesk';
+  src: url('../fonts/SpaceGrotesk-VariableFont_wght.ttf');
+}
+
+:root {
+  --font-sans: 'space_grotesk';
+}
