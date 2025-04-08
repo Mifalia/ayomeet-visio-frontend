@@ -1,0 +1,25 @@
+<app-authlayout>
+  <div class="flex h-full flex-col items-center justify-center p-4">
+    <div class="content w-full max-w-[480px]">
+      <div class="logo-container">
+        <img src="/images/logo-horizontal.svg" alt="" />
+      </div>
+      <h2 class="mt-14 text-2xl font-bold">Login</h2>
+      <form class="mt-6">
+        <div class="form-group">
+          <label for="email" class="form-label mb-2 block">Email</label>
+          <div class="input-container">
+            <input class="form-input" type="email" name="email" id="email" placeholder="Ex: yourname@example.com" />
+          </div>
+        </div>
+        <div class="form-group mt-6">
+          <label for="password" class="form-label mb-2 block">Password</label>
+          <div class="input-container">
+            <input class="form-input" type="password" name="password" id="password" placeholder="Your password" />
+          </div>
+        </div>
+        <button class="btn btn-primary mt-6 w-full">Login</button>
+      </form>
+    </div>
+  </div>
+</app-authlayout>
