@@ -6,7 +6,7 @@
       </div>
 
       <div class="mt-12" [ngClass]="getAlertClass()">
-        <div class="bg-surface-important inline-flex rounded-lg px-4 py-4">
+        <div class="inline-flex rounded-lg bg-surface-important px-4 py-4">
           <p class="flex items-center text-sm font-medium text-onSurface-important">
             <span class="bg-red mr-3 flex h-5 w-5 items-center justify-center rounded-full">
               <i class="material-icons">error_outline</i>
@@ -16,7 +16,6 @@
             </span>
           </p>
         </div>
-
       </div>
       <h2 class="mt-2 text-2xl font-bold">Login</h2>
       <form class="mt-6" (ngSubmit)="onSubmit($event)">
@@ -48,7 +47,9 @@
         </div>
         <button class="btn btn-primary mt-6 w-full">Login</button>
       </form>
-      <p class="mt-5">Do not have an account ? <a routerLink="/signup" class="text-text-primary">Create one here !</a></p>
+      <p class="mt-5">
+        Do not have an account ? <a routerLink="/signup" class="text-text-primary">Create one here !</a>
+      </p>
     </div>
   </div>
 </app-authlayout>
