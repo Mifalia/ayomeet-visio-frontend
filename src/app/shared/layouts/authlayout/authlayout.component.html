@@ -1,0 +1,21 @@
+<div class="flex h-screen w-screen flex-col gap-0 tablet:flex-row">
+  <!-- left content -->
+  <div class="hidden h-full w-full bg-surface-primary tablet:block tablet:w-1/2">
+    <div class="flex h-full flex-col items-center justify-center p-10">
+      <div class="content tablet:max-w-[360px]">
+        <div class="img-container text-center">
+          <img src="/images/auth-illustration.png" alt="Login or signup" class="max-w-full" />
+        </div>
+        <div>
+          <h2 class="mt-5 text-2xl font-bold">AyoMeet visio-conference</h2>
+          <p class="mt-3 text-base">Connect with anyone, for anything, from anywhere !</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- right content -->
+  <div class="h-full w-full overflow-y-scroll bg-surface-default tablet:w-1/2">
+    <ng-content></ng-content>
+  </div>
+</div>

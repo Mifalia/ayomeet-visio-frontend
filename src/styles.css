@@ -5,3 +5,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html {
+    @apply bg-bg-default font-sans text-text-default;
+  }
+}
+
+@layer components {
+  /* forms */
+  .form-label {
+    @apply text-sm;
+  }
+
+  .input-container {
+    @apply flex h-10 items-center gap-2 overflow-hidden rounded-md border border-transparent bg-surface-neutral px-3 ring-2 ring-transparent focus-within:ring-border-primary;
+  }
+
+  .form-input {
+    @apply h-full flex-1 bg-transparent text-base outline-none;
+  }
+
+  /* buttons */
+  .btn {
+    @apply flex h-10 w-fit items-center justify-center rounded-md bg-bg-default px-4 py-2 text-center text-sm font-medium ring ring-transparent hover:ring-border-default;
+  }
+
+  .btn-primary {
+    @apply bg-bg-primary text-text-defaultInverse hover:ring-border-primary focus:ring-border-primary;
+  }
+}
