@@ -3,7 +3,9 @@ import { AuthlayoutComponent } from '../../shared/layouts/authlayout/authlayout.
 import { AuthService } from '../../../services/firebase/auth/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { extractUsernameFromEmail } from '../../shared/utils/user-utils';
+import { IUserSession, SessionService } from '../../../services/session/session.service';
 
 @Component({
   selector: 'app-signup',
@@ -12,7 +14,9 @@ import { RouterLink } from '@angular/router';
   styleUrl: './signup.component.css',
 })
 export class SignupComponent {
+  router: Router = inject(Router);
   authService: AuthService = inject(AuthService);
+  sessionService: SessionService = inject(SessionService);
   email: string = '';
   password: string = '';
   passwordConfirm: string = '';
@@ -38,6 +42,16 @@ export class SignupComponent {
       }
 
       const response = await this.authService.signup(this.email, this.password);
+      const userToken = await response.user.getIdToken();
+      const user: IUserSession = {
+        token: userToken,
+        email: response.user.email,
+        username: extractUsernameFromEmail(response.user.email as string),
+      };
+      // open user session
+      this.sessionService.setUser(user);
+      // redirect home
+      this.router.navigateByUrl('/');
     } catch (error: any) {
       this.message = error.message;
     }
