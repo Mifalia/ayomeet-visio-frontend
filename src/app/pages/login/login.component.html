@@ -4,22 +4,52 @@
       <div class="logo-container">
         <img src="/images/logo-horizontal.svg" alt="" />
       </div>
-      <h2 class="mt-14 text-2xl font-bold">Login</h2>
-      <form class="mt-6">
+
+      <div class="mt-12" [ngClass]="getAlertClass()">
+        <div class="inline-flex rounded-lg bg-surface-important px-4 py-4">
+          <p class="flex items-center text-sm font-medium text-onSurface-important">
+            <span class="bg-red mr-3 flex h-5 w-5 items-center justify-center rounded-full">
+              <i class="material-icons">error_outline</i>
+            </span>
+            <span>
+              {{ message }}
+            </span>
+          </p>
+        </div>
+      </div>
+      <h2 class="mt-2 text-2xl font-bold">Login</h2>
+      <form class="mt-6" (ngSubmit)="onSubmit($event)">
         <div class="form-group">
           <label for="email" class="form-label mb-2 block">Email</label>
           <div class="input-container">
-            <input class="form-input" type="email" name="email" id="email" placeholder="Ex: yourname@example.com" />
+            <input
+              [(ngModel)]="email"
+              class="form-input"
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Ex: yourname@example.com"
+            />
           </div>
         </div>
         <div class="form-group mt-6">
           <label for="password" class="form-label mb-2 block">Password</label>
           <div class="input-container">
-            <input class="form-input" type="password" name="password" id="password" placeholder="Your password" />
+            <input
+              [(ngModel)]="password"
+              class="form-input"
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Your password"
+            />
           </div>
         </div>
         <button class="btn btn-primary mt-6 w-full">Login</button>
       </form>
+      <p class="mt-5">
+        Do not have an account ? <a routerLink="/signup" class="text-text-primary">Create one here !</a>
+      </p>
     </div>
   </div>
 </app-authlayout>

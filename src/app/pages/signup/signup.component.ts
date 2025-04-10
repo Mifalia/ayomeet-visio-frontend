@@ -1,20 +1,22 @@
 import { Component, inject } from '@angular/core';
+import { AuthlayoutComponent } from '../../shared/layouts/authlayout/authlayout.component';
+import { AuthService } from '../../../services/firebase/auth/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
-import { AuthlayoutComponent } from '../../shared/layouts/authlayout/authlayout.component';
-import { AuthService } from '../../../services/firebase/auth/auth.service';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-signup',
   imports: [AuthlayoutComponent, FormsModule, CommonModule, RouterLink],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.css',
+  templateUrl: './signup.component.html',
+  styleUrl: './signup.component.css',
 })
-export class LoginPage {
+export class SignupComponent {
   authService: AuthService = inject(AuthService);
   email: string = '';
   password: string = '';
+  passwordConfirm: string = '';
+
   message: string = '';
 
   getAlertClass() {
@@ -29,8 +31,13 @@ export class LoginPage {
       alert('Please fill in all fields');
       return;
     }
+
     try {
-      const response = await this.authService.login(this.email, this.password);
+      if (this.password !== this.passwordConfirm) {
+        throw new Error('Passwords do not match');
+      }
+
+      const response = await this.authService.signup(this.email, this.password);
     } catch (error: any) {
       this.message = error.message;
     }
