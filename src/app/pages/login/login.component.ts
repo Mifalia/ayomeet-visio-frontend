@@ -3,8 +3,8 @@ import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { AuthlayoutComponent } from '../../shared/layouts/authlayout/authlayout.component';
-import { AuthService } from '../../../services/firebase/auth/auth.service';
-import { IUserSession, SessionService } from '../../../services/session/session.service';
+import { AuthService } from '../../services/firebase/auth/auth.service';
+import { IUserSession, SessionService } from '../../services/session/session.service';
 import { extractUsernameFromEmail } from '../../shared/utils/user-utils';
 
 @Component({

@@ -1,11 +1,11 @@
 import { Component, inject } from '@angular/core';
 import { AuthlayoutComponent } from '../../shared/layouts/authlayout/authlayout.component';
-import { AuthService } from '../../../services/firebase/auth/auth.service';
+import { AuthService } from '../../services/firebase/auth/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 import { extractUsernameFromEmail } from '../../shared/utils/user-utils';
-import { IUserSession, SessionService } from '../../../services/session/session.service';
+import { IUserSession, SessionService } from '../../services/session/session.service';
 
 @Component({
   selector: 'app-signup',
