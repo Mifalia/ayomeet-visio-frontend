@@ -22,6 +22,7 @@ const config = {
         },
         bg: {
           default: 'var(--white-cloud)',
+          dark: 'var(--bg-dark)',
           primary: 'var(--brand-500)',
           neutral: colors.neutral[400],
           important: colors.red[600],
@@ -29,13 +30,15 @@ const config = {
         },
         surface: {
           default: colors.white,
+          dark: 'var(--surface-dark)',
           primary: 'var(--brand-50)',
-          neutral: colors.neutral[100],
+          neutral: '#f0f0f0',
           important: colors.red[50],
           success: colors.emerald[50],
         },
         onSurface: {
           default: 'var(--black-carbon)',
+          dark: 'var(--onSurface-dark)',
           primary: 'var(--brand-800)',
           neutral: colors.neutral[600],
           important: colors.red[700],
@@ -50,6 +53,7 @@ const config = {
         },
         text: {
           default: 'var(--black-carbon)',
+          dark: 'var(--text-dark)',
           primary: 'var(--brand-700)',
           neutral: colors.neutral[400],
           important: colors.red[600],
