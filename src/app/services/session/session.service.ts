@@ -20,7 +20,6 @@ export class SessionService {
 
   clear() {
     localStorage.removeItem('user');
-    localStorage.removeItem('token');
   }
 
   isLoggedIn(): boolean {
