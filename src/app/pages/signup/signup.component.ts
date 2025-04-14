@@ -4,7 +4,7 @@ import { AuthService } from '../../services/firebase/auth/auth.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
-import { extractUsernameFromEmail } from '../../shared/utils/user-utils';
+import { extractUsernameFromEmail, generateUserAvatar } from '../../shared/utils/user-utils';
 import { IUserSession, SessionService } from '../../services/session/session.service';
 
 @Component({
@@ -17,6 +17,8 @@ export class SignupComponent {
   router: Router = inject(Router);
   authService: AuthService = inject(AuthService);
   sessionService: SessionService = inject(SessionService);
+
+  username: string = '';
   email: string = '';
   password: string = '';
   passwordConfirm: string = '';
@@ -31,7 +33,7 @@ export class SignupComponent {
     event.preventDefault();
     this.message = '';
 
-    if (!this.email.trim() || !this.password.trim()) {
+    if (!this.email.trim() || !this.password.trim() || !this.username.trim()) {
       alert('Please fill in all fields');
       return;
     }
@@ -41,12 +43,17 @@ export class SignupComponent {
         throw new Error('Passwords do not match');
       }
 
-      const response = await this.authService.signup(this.email, this.password);
+      const response = await this.authService.signup({
+        email: this.email,
+        password: this.password,
+        username: this.username,
+      });
       const userToken = await response.user.getIdToken();
       const user: IUserSession = {
         token: userToken,
         email: response.user.email,
-        username: extractUsernameFromEmail(response.user.email as string),
+        username: response.user.displayName || extractUsernameFromEmail(response.user.email as string),
+        avatar: response.user.photoURL || generateUserAvatar(response.user.email as string),
       };
       // open user session
       this.sessionService.setUser(user);

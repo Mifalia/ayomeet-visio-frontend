@@ -6,7 +6,7 @@
       </div>
 
       <div class="mt-2" [ngClass]="getAlertClass()">
-        <div class="bg-surface-important inline-flex rounded-lg px-4 py-4">
+        <div class="inline-flex rounded-lg bg-surface-important px-4 py-4">
           <p class="flex items-center text-sm font-medium text-onSurface-important">
             <span class="bg-red mr-3 flex h-5 w-5 items-center justify-center rounded-full">
               <i class="material-icons">error_outline</i>
@@ -21,21 +21,55 @@
       <h2 class="mt-1 text-2xl font-bold">Signup</h2>
       <form class="mt-6" (submit)="onSubmit($event)">
         <div class="form-group mt-6">
+          <label for="username" class="form-label mb-2 block">Display name</label>
+          <div class="input-container">
+            <input
+              [(ngModel)]="username"
+              class="form-input"
+              type="text"
+              name="email"
+              id="username"
+              placeholder="New username"
+            />
+          </div>
+        </div>
+        <div class="form-group mt-6">
           <label for="email" class="form-label mb-2 block">Email</label>
           <div class="input-container">
-            <input [(ngModel)]="email" class="form-input" type="email" name="email" id="email" placeholder="Ex: yourname@example.com" />
+            <input
+              [(ngModel)]="email"
+              class="form-input"
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Ex: yourname@example.com"
+            />
           </div>
         </div>
         <div class="form-group mt-6">
           <label for="password" class="form-label mb-2 block">Password</label>
           <div class="input-container">
-            <input [(ngModel)]="password" class="form-input" type="password" name="password" id="password" placeholder="New password" />
+            <input
+              [(ngModel)]="password"
+              class="form-input"
+              type="password"
+              name="password"
+              id="password"
+              placeholder="New password"
+            />
           </div>
         </div>
         <div class="form-group mt-6">
           <label for="passwordConfirm" class="form-label mb-2 block">Confirm password</label>
           <div class="input-container">
-            <input [(ngModel)]="passwordConfirm" class="form-input" type="password" name="passwordConfirm" id="passwordConfirm" placeholder="Confirm password" />
+            <input
+              [(ngModel)]="passwordConfirm"
+              class="form-input"
+              type="password"
+              name="passwordConfirm"
+              id="passwordConfirm"
+              placeholder="Confirm password"
+            />
           </div>
         </div>
         <button class="btn btn-primary mt-6 w-full">Create your account</button>
