@@ -1,0 +1,36 @@
+<div class="dashboard-layout flex h-screen gap-0">
+  <div class="flex h-full w-32 shrink-0 grow-0 flex-col gap-0 bg-bg-dark">
+    <a href="#" class="flex w-full justify-center px-5 py-4">
+      <img src="/images/logo-square.svg" alt="Logo square" />
+    </a>
+    <div class="flex grow flex-col items-stretch gap-4 p-4">
+      <a
+        *ngFor="let link of sidebarMenuLinks"
+        [routerLink]="link.href"
+        class="rounded p-4 pb-3 text-center text-text-dark hover:bg-surface-dark hover:text-onSurface-dark"
+      >
+        <i class="material-icons-outlined block">{{ link.icon }}</i>
+        <span class="text-xs font-medium leading-none">{{ link.label }}</span>
+      </a>
+    </div>
+    <div class="flex flex-col items-stretch p-5">
+      <a
+        routerLink="/logout"
+        class="rounded p-4 pb-3 text-center text-text-important hover:bg-red-800/10 hover:text-onSurface-important"
+      >
+        <i class="material-icons-outlined block">logout</i>
+        <span class="text-xs font-medium leading-none">Logout</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="main relative flex h-screen grow flex-col items-stretch overflow-auto">
+    <app-dashboard-header class="sticky left-0 right-0 top-0"></app-dashboard-header>
+
+    <div class="flex-1">
+      <ng-content></ng-content>
+    </div>
+
+    <footer class="p-4 text-center text-sm">&copy; Ayomeet 2025</footer>
+  </div>
+</div>

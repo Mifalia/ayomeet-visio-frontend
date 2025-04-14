@@ -1,5 +1,5 @@
-/* Primary Tokens */
 :root {
+  /* Primary Tokens */
   --white-cloud: #f6f6f6;
   --black-carbon: #181423;
 
@@ -14,4 +14,10 @@
   --brand-800: #312e81;
   --brand-900: #262866;
   --brand-950: #1e1b4b;
+
+  /* Semantic */
+  --bg-dark: var(--black-carbon);
+  --surface-dark: #2a233b;
+  --text-dark: #b8b1d0;
+  --onSurface-dark: #f5f5f5;
 }
