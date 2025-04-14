@@ -1,7 +1,14 @@
 import { Injectable } from '@angular/core';
-import { Auth, createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  Auth,
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from 'firebase/auth';
 import { firebaseApp } from '../config';
 import { FirebaseError } from 'firebase/app';
+import { generateUserAvatar } from '../../../shared/utils/user-utils';
 
 @Injectable({
   providedIn: 'root',
@@ -44,10 +51,15 @@ export class AuthService {
    * @throws {Error} If the email is already in use, invalid, or the password is too weak.
    * @throws {Error} If an unexpected error occurs during the signup process.
    */
-  public async signup(email: string, password: string) {
+  public async signup({ username, email, password }: { username: string; email: string; password: string }) {
     try {
-      const response = await createUserWithEmailAndPassword(this.auth, email, password);
-      return response;
+      const createUser = await createUserWithEmailAndPassword(this.auth, email, password);
+      const updateUser = await updateProfile(createUser.user, {
+        displayName: username,
+        photoURL: generateUserAvatar(email),
+      });
+      const logUser = await signInWithEmailAndPassword(this.auth, email, password);
+      return logUser;
     } catch (error) {
       if (error instanceof FirebaseError) {
         switch (error.code) {

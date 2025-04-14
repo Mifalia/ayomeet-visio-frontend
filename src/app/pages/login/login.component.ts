@@ -5,7 +5,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthlayoutComponent } from '../../shared/layouts/authlayout/authlayout.component';
 import { AuthService } from '../../services/firebase/auth/auth.service';
 import { IUserSession, SessionService } from '../../services/session/session.service';
-import { extractUsernameFromEmail } from '../../shared/utils/user-utils';
+import { extractUsernameFromEmail, generateUserAvatar } from '../../shared/utils/user-utils';
 
 @Component({
   selector: 'app-login',
@@ -40,7 +40,8 @@ export class LoginPage {
       const user: IUserSession = {
         token: userToken,
         email: response.user.email,
-        username: extractUsernameFromEmail(response.user.email as string),
+        username: response.user.displayName || extractUsernameFromEmail(response.user.email as string),
+        avatar: response.user.photoURL || generateUserAvatar(response.user.email as string),
       };
       // open user session
       this.sessionService.setUser(user);

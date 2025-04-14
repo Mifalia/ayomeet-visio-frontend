@@ -11,3 +11,7 @@ export const extractUsernameFromEmail = (email: string = ''): string | null => {
 
   return email.split('@')[0];
 };
+
+export const generateUserAvatar = (seed: string): string => {
+  return `https://api.dicebear.com/9.x/initials/svg?seed=${encodeURIComponent(seed)}&radius=24&size=40`;
+};
