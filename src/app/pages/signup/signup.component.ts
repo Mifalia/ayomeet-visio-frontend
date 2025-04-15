@@ -50,6 +50,7 @@ export class SignupComponent {
       });
       const userToken = await response.user.getIdToken();
       const user: IUserSession = {
+        uid: response.user.uid,
         token: userToken,
         email: response.user.email,
         username: response.user.displayName || extractUsernameFromEmail(response.user.email as string),
