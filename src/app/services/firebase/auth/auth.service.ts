@@ -1,12 +1,5 @@
 import { Injectable } from '@angular/core';
-import {
-  Auth,
-  createUserWithEmailAndPassword,
-  getAuth,
-  signInWithEmailAndPassword,
-  updateProfile,
-} from 'firebase/auth';
-import { firebaseApp } from '../config';
+import { Auth, createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from '@angular/fire/auth';
 import { FirebaseError } from 'firebase/app';
 import { generateUserAvatar } from '../../../shared/utils/user-utils';
 
@@ -14,10 +7,7 @@ import { generateUserAvatar } from '../../../shared/utils/user-utils';
   providedIn: 'root',
 })
 export class AuthService {
-  private auth: Auth;
-  constructor() {
-    this.auth = getAuth(firebaseApp);
-  }
+  constructor(private auth: Auth) {}
 
   public async login(email: string, password: string) {
     try {
