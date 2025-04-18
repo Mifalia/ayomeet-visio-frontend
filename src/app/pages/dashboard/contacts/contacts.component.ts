@@ -76,6 +76,17 @@ export class ContactsComponent {
       });
   }
 
+  editContact(id: string | undefined) {
+    const contact = this.contacts?.find((contact) => contact.id === id);
+    if (!contact) return;
+    let email = prompt(`Edit ${contact.email}`, contact?.email as string);
+    email = email?.trim() as string;
+    if (!email) return;
+    this.contactsService.updateContact(id as string, { email }).then(() => {
+      this.loadContacts();
+    });
+  }
+
   focusSearch() {
     this.searchInputRef.nativeElement.focus();
   }
