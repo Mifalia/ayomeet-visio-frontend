@@ -9,11 +9,22 @@
         <button (click)="toggleNewContactForm()" type="button" class="btn btn-primary gap-3">
           <i class="material-icons text-base">add</i>{{ 'New Contact' }}
         </button>
-        <div *ngIf="showNewContactForm" class="flex items-stretch gap-0 overflow-hidden rounded-md bg-surface-default ring ring-transparent focus-within:border-transparent focus-within:ring-border-primary">
-          <input type="email" placeholder="New contact email" class="h-10 px-4 outline-none" [(ngModel)]="newContactEmail" />
-          <button type="button" class="h-full w-10 flex justify-center items-center bg-surface-success text-onSurface-success border border-text-success rounded-r-md">
+        <div
+          *ngIf="showNewContactForm"
+          class="flex items-stretch gap-0 overflow-hidden rounded-md bg-surface-default ring ring-transparent focus-within:border-transparent focus-within:ring-border-primary"
+        >
+          <input
+            type="email"
+            placeholder="New contact email"
+            class="h-10 px-4 outline-none"
+            [(ngModel)]="newContactEmail"
+          />
+          <button
+            type="button"
+            class="flex h-full w-10 items-center justify-center rounded-r-md border border-text-success bg-surface-success text-onSurface-success"
+          >
             <i *ngIf="!isLoadingNewContact" class="material-icons text-lg" (click)="submitNewContact()">add</i>
-            <i *ngIf="isLoadingNewContact" class="material-icons text-lg animate-spin" >loop</i>
+            <i *ngIf="isLoadingNewContact" class="material-icons animate-spin text-lg">loop</i>
           </button>
         </div>
       </div>
