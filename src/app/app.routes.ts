@@ -4,12 +4,19 @@ import { SignupComponent } from './pages/signup/signup.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { AuthGuard } from './services/guards/auth.guard';
 import { LogoutComponent } from './pages/logout/logout.component';
+import { HomeComponent } from './pages/dashboard/home/home.component';
 
 export const routes: Routes = [
   {
     path: '',
     component: DashboardComponent,
     canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        component: HomeComponent,
+      },
+    ],
   },
   {
     path: 'login',
