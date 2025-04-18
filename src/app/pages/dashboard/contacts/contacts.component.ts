@@ -14,10 +14,19 @@ export class ContactsComponent {
   constructor(private contactsService: ContactService) {}
   generateUserAvatar = (k: string | null) => generateUserAvatar(k as string);
 
+  showNewContactForm: boolean = false;
+  isLoadingNewContact: boolean = false;
+
+  toggleNewContactForm() {
+    this.showNewContactForm = !this.showNewContactForm;
+  }
+
   @ViewChild('searchInput') searchInputRef!: ElementRef<HTMLInputElement>;
 
   contacts: IContact[] | null = [];
   contactsDisplayed: IContact[] | null = [];
+
+  newContactEmail: string = '';
 
   private _searchKeyword: string = '';
   get searchKeyword(): string {
@@ -38,6 +47,26 @@ export class ContactsComponent {
   async loadContacts() {
     this.contacts = await this.contactsService.getContacts();
     this.contactsDisplayed = this.contacts;
+  }
+
+  async submitNewContact() {
+    const email = this.newContactEmail.trim();
+    if (!email) return;
+    this.isLoadingNewContact = true;
+    const existingContact = this.contacts?.find((contact) => contact.email === email);
+    if (existingContact) {
+      alert('Contact already exists');
+      this.isLoadingNewContact = false;
+      return;
+    }
+    const newContact: IContact = {
+      email,
+    };
+    await this.contactsService.addContact(newContact);
+    this.newContactEmail = '';
+    this.showNewContactForm = false;
+    this.loadContacts();
+    this.isLoadingNewContact = false;
   }
 
   focusSearch() {
