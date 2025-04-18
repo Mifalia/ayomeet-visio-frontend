@@ -79,5 +79,5 @@ export class ContactService {
 
 export interface IContact {
   email: string | null;
-  createdAt?: FieldValue;
+  createdAt?: any;
 }
