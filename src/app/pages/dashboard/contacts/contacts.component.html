@@ -1,0 +1,115 @@
+<div class="container mx-auto px-4 py-4">
+  <div class="flex w-full items-end justify-between">
+    <div>
+      <h2 class="text-2xl font-bold">Contacts List</h2>
+      <p class="text-neutral-600">Manage your contacts here</p>
+    </div>
+    <div>
+      <div class="flex flex-row-reverse gap-4">
+        <button (click)="toggleNewContactForm()" type="button" class="btn btn-primary gap-3">
+          <i class="material-icons text-base">add</i>{{ 'New Contact' }}
+        </button>
+        <div
+          *ngIf="showNewContactForm"
+          class="flex items-stretch gap-0 overflow-hidden rounded-md bg-surface-default ring ring-transparent focus-within:border-transparent focus-within:ring-border-primary"
+        >
+          <input
+            type="email"
+            placeholder="New contact email"
+            class="h-10 px-4 outline-none"
+            [(ngModel)]="newContactEmail"
+          />
+          <button
+            type="button"
+            class="flex h-full w-10 items-center justify-center rounded-r-md border border-text-success bg-surface-success text-onSurface-success"
+          >
+            <i *ngIf="!isLoadingNewContact" class="material-icons text-lg" (click)="submitNewContact()">add</i>
+            <i *ngIf="isLoadingNewContact" class="material-icons animate-spin text-lg">loop</i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-5">
+    <div class="overflow-scroll p-0">
+      <table class="mt-4 w-full min-w-max table-auto text-left">
+        <thead>
+          <tr class="bg-surface-default">
+            <th class="cursor-pointer border-y border-slate-200 p-4 transition-colors hover:bg-slate-100">
+              <div>
+                <div
+                  class="flex h-10 w-auto gap-0 rounded-md border border-border-neutral bg-surface-default ring ring-transparent *:cursor-text focus-within:border-transparent focus-within:ring-border-primary"
+                >
+                  <label for="search" class="flex h-full w-10 items-center justify-center">
+                    <i class="material-icons text-lg !leading-none" (click)="focusSearch()">search</i>
+                  </label>
+                  <input
+                    #searchInput
+                    [(ngModel)]="searchKeyword"
+                    id="search"
+                    placeholder="Search ..."
+                    class="h-full flex-1 border-0 bg-transparent font-thin outline-none ring-0"
+                  />
+                </div>
+              </div>
+            </th>
+            <th class="cursor-pointer border-y border-slate-200 p-4 transition-colors hover:bg-slate-100">
+              <p
+                class="flex items-center justify-between gap-2 font-sans text-sm font-normal leading-none text-slate-500"
+              >
+                Added on
+              </p>
+            </th>
+            <th class="cursor-pointer border-y border-slate-200 p-4 transition-colors hover:bg-slate-100">
+              <p
+                class="flex items-center justify-between gap-2 font-sans text-sm font-normal leading-none text-slate-500"
+              ></p>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let contact of contactsDisplayed; let i = index" class="hover:bg-surface-primary">
+            <td class="border-b border-slate-200 p-4">
+              <div class="flex items-center gap-3">
+                <img
+                  [src]="generateUserAvatar(contact.email)"
+                  alt="John Michael"
+                  class="relative inline-block h-9 w-9 rounded object-cover object-center"
+                />
+                <div class="flex flex-col">
+                  <p class="text-sm font-semibold text-slate-700">
+                    {{ contact.email }}
+                  </p>
+                </div>
+              </div>
+            </td>
+            <td class="border-b border-slate-200 p-4">
+              <p class="text-sm text-slate-500">
+                {{ contact?.createdAt?.seconds | date: 'dd MMMM YYYY' }}
+              </p>
+            </td>
+            <td class="border-b border-slate-200 p-4">
+              <div class="flex justify-end gap-3">
+                <button
+                  class="relative flex h-10 max-h-[40px] w-10 max-w-[40px] select-none items-center justify-center rounded border border-border-primary text-text-primary hover:bg-surface-neutral"
+                  type="button"
+                  (click)="editContact(contact.id)"
+                >
+                  <i class="material-icons-outlined">edit</i>
+                </button>
+                <button
+                  class="relative flex h-10 max-h-[40px] w-10 max-w-[40px] select-none items-center justify-center rounded border border-border-important text-text-important hover:bg-surface-important"
+                  type="button"
+                  (click)="deleteContact(contact.id)"
+                >
+                  <i class="material-icons-outlined">delete_outline</i>
+                </button>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

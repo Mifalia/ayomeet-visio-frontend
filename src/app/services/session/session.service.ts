@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 
 export interface IUserSession {
+  uid: string;
   token: string;
   email: string | null;
   username?: string | null;

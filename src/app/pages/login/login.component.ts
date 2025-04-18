@@ -38,6 +38,7 @@ export class LoginPage {
       const response = await this.authService.login(this.email, this.password);
       const userToken = await response.user.getIdToken();
       const user: IUserSession = {
+        uid: response.user.uid,
         token: userToken,
         email: response.user.email,
         username: response.user.displayName || extractUsernameFromEmail(response.user.email as string),
