@@ -78,6 +78,7 @@ export class ContactService {
 }
 
 export interface IContact {
+  id?: string;
   email: string | null;
   createdAt?: any;
 }

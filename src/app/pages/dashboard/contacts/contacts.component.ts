@@ -69,6 +69,13 @@ export class ContactsComponent {
     this.isLoadingNewContact = false;
   }
 
+  deleteContact(id: string | undefined) {
+    confirm('Are you sure you want to delete this contact?') &&
+      this.contactsService.deleteContact(id as string).then(() => {
+        this.loadContacts();
+      });
+  }
+
   focusSearch() {
     this.searchInputRef.nativeElement.focus();
   }
