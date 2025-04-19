@@ -1,1 +1,68 @@
-<p>meetings works!</p>
+<div class="flex h-full flex-col items-center justify-start py-4">
+  <div class="w-full max-w-[480px]">
+    <h2 class="flex justify-center">
+      <img src="/images/logo-horizontal.svg" alt="Logo" />
+    </h2>
+
+    <div class="mt-5">
+      <div class="flex flex-nowrap">
+        <button (click)="switchTab('join')" class="flex-1 border-b-4 py-2 text-center hover:bg-surface-neutral">
+          <span>Join meeting</span>
+        </button>
+        <button
+          (click)="switchTab('create')"
+          class="flex-1 border-b-4 border-b-neutral-200 py-2 text-center hover:bg-surface-neutral"
+        >
+          <span>Create meeting</span>
+        </button>
+      </div>
+    </div>
+
+    <div class="mt-10">
+      <form *ngIf="isActive('join')">
+        <div>
+          <div>
+            <p class="mb-5 text-center">Enter the name of the room you want to join.</p>
+          </div>
+          <div class="flex gap-3">
+            <div class="input-container flex-1 border border-border-default bg-surface-default">
+              <input type="text" id="meeting-id" class="form-input" placeholder="Room Name" required />
+            </div>
+            <button class="btn btn-primary">Join</button>
+          </div>
+        </div>
+      </form>
+
+      <form *ngIf="isActive('create')">
+        <div>
+          <div>
+            <p class="mb-5 text-center">Create a new meeting room.</p>
+          </div>
+          <div class="flex gap-3">
+            <div class="input-container flex-1 border border-border-default bg-surface-default">
+              <input
+                type="text"
+                id="meeting-id"
+                class="form-input"
+                placeholder="New room name (Ex: 'project meeting')"
+                required
+              />
+            </div>
+            <button class="btn btn-primary">Create</button>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <div class="flex flex-col gap-3">
+            <div *ngFor="let contact of contacts" class="hover:bg-surface-neutral">
+              <div class="flex w-full items-center gap-3">
+                <img [src]="generateUserAvatar(contact.email)" alt="" />
+                <span>{{ contact.email }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
