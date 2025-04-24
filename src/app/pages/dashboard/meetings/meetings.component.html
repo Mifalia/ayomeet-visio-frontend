@@ -19,21 +19,29 @@
     </div>
 
     <div class="mt-10">
-      <form *ngIf="isActive('join')">
+      <form *ngIf="isActive('join')" (submit)="joinRoom($event)">
         <div>
           <div>
             <p class="mb-5 text-center">Enter the name of the room you want to join.</p>
           </div>
           <div class="flex gap-3">
             <div class="input-container flex-1 border border-border-default bg-surface-default">
-              <input type="text" id="meeting-id" class="form-input" placeholder="Room Name" required />
+              <input
+                type="text"
+                id="meeting-id"
+                class="form-input"
+                placeholder="Room Name"
+                [(ngModel)]="joinRoomName"
+                name="joinRoomName"
+                required
+              />
             </div>
             <button class="btn btn-primary">Join</button>
           </div>
         </div>
       </form>
 
-      <form *ngIf="isActive('create')">
+      <form *ngIf="isActive('create')" (submit)="createRoom($event)">
         <div>
           <div>
             <p class="mb-5 text-center">Create a new meeting room.</p>
@@ -45,6 +53,8 @@
                 id="meeting-id"
                 class="form-input"
                 placeholder="New room name (Ex: 'project meeting')"
+                [(ngModel)]="createRoomName"
+                name="createRoomName"
                 required
               />
             </div>

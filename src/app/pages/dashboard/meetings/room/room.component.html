@@ -1,0 +1,29 @@
+<div class="room-wrapper">
+  <!-- Sidebar des participants -->
+  <aside class="sidebar w-[256px]">
+    <h2 class="sidebar-title">Participants</h2>
+    <ul class="participant-list">
+      <li
+        *ngFor="let p of participants"
+        [class.active]="focusedParticipant === p.identity"
+        (click)="setFocus(p.identity)"
+        class="flex items-center gap-3"
+      >
+        <img
+          [src]="generateUserAvatar(p.identity === 'local' ? session.getUser()?.email || 'nada' : p.identity)"
+          [alt]="p.identity"
+        />
+        <span>{{ p.identity === 'local' ? 'You' : p.identity }}</span>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- Contenu principal -->
+  <main class="main-content">
+    <!-- Vidéo principale -->
+    <section class="focused-video" #focusedRoomVideo></section>
+
+    <!-- Grille des vidéos secondaires -->
+    <section class="video-grid grid-col-3 grid" #listRoomVideo></section>
+  </main>
+</div>
