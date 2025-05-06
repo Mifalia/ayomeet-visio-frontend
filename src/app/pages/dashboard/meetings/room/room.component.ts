@@ -1,21 +1,25 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, ElementRef, inject, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { TwilioVideoService } from '../../../../services/twilio/twilio.service';
 import { LocalVideoTrackPublication, RemoteAudioTrack, RemoteVideoTrack, RemoteParticipant } from 'twilio-video';
 import { CommonModule } from '@angular/common';
 import { generateUserAvatar } from '../../../../shared/utils/user-utils';
 import { SessionService } from '../../../../services/session/session.service';
+import { HamsterLoaderComponent } from '../../../../shared/components/hamster-loader/hamster-loader.component';
 
 @Component({
   selector: 'app-room',
   templateUrl: './room.component.html',
   styleUrls: ['./room.component.css'],
-  imports: [CommonModule],
+  imports: [CommonModule, HamsterLoaderComponent],
 })
 export class RoomComponent implements OnInit {
   @ViewChild('focusedRoomVideo', { static: true }) focusedRoomVideoElement!: ElementRef;
   @ViewChild('listRoomVideo', { static: true }) listRoomVideoElement!: ElementRef;
+  router: Router = inject(Router);
 
+  isLoading: boolean = true;
+  loadingMessage: string = '';
   room_name: string | null = '';
   focusedParticipant: string = 'local';
   videoElements: Map<string, HTMLElement> = new Map();
@@ -32,7 +36,30 @@ export class RoomComponent implements OnInit {
 
   async ngOnInit() {
     this.room_name = this.route.snapshot.paramMap.get('room_name');
+    this.isLoading = true;
+
+    const devices = await this.checkDevicesAvailability();
+
+    if (!devices.hasCamera || !devices.hasMicrophone) {
+      this.loadingMessage = 'Your device does not support video/audio calls.';
+      return;
+    }
+
+    const stream = await this.requestMediaAccess();
+    if (!stream) {
+      this.loadingMessage = 'You need to allow access to your camera and microphone.';
+      return;
+    }
+
+    this.loadingMessage = 'Hold on, we are setting up your meeting room...';
     await this.loadRoomMeeting();
+    this.isLoading = false;
+  }
+
+  leaveRoom() {
+    this.roomService.leaveRoom();
+    this.videoElements.forEach((el) => el.remove());
+    this.router.navigate(['/meeting']);
   }
 
   async loadRoomMeeting() {
@@ -118,5 +145,22 @@ export class RoomComponent implements OnInit {
         }
       }
     });
+  }
+
+  async checkDevicesAvailability(): Promise<{ hasCamera: boolean; hasMicrophone: boolean }> {
+    const devices = await navigator.mediaDevices.enumerateDevices();
+    const hasCamera = devices.some((device) => device.kind === 'videoinput');
+    const hasMicrophone = devices.some((device) => device.kind === 'audioinput');
+    return { hasCamera, hasMicrophone };
+  }
+
+  async requestMediaAccess(): Promise<MediaStream | null> {
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+      return stream;
+    } catch (error) {
+      console.error('Camera and Audio no allowed', error);
+      return null;
+    }
   }
 }

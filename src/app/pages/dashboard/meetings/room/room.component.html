@@ -1,4 +1,4 @@
-<div class="room-wrapper">
+<div class="room-wrapper" *ngIf="!isLoading">
   <!-- Sidebar des participants -->
   <aside class="sidebar w-[256px]">
     <h2 class="sidebar-title">Participants</h2>
@@ -26,4 +26,17 @@
     <!-- Grille des vidéos secondaires -->
     <section class="video-grid grid-col-3 grid" #listRoomVideo></section>
   </main>
+</div>
+
+<div *ngIf="isLoading" class="flex h-full w-full items-center justify-center">
+  <div class="flex flex-col items-center justify-center gap-8">
+    <app-hamster-loader></app-hamster-loader>
+    <p>{{ loadingMessage }}</p>
+    <button
+      class="btn border border-border-important text-onSurface-important text-text-important hover:bg-surface-important"
+      (click)="leaveRoom()"
+    >
+      Leave Room
+    </button>
+  </div>
 </div>
